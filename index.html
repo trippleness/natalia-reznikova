@@ -311,34 +311,91 @@
 
     .hero{
       grid-template-columns:1fr;
-      grid-template-rows:auto 1fr;
-      padding:10px 18px 10px;
-      gap:10px;
-      align-content:center;
+      grid-template-rows:auto auto;
+      padding:12px 18px 14px;
+      gap:14px;
+      align-content:start;
     }
-    .hero-visual{ max-width:280px; height:auto; margin:0 auto; order:-1; padding-right:0; }
-    .photo-card{ max-width:100%; }
-    .region-badge{ top:12px; right:-8px; font-size:10.5px; padding:8px 11px; max-width:180px; }
+    .hero-text{ overflow:visible; }
+    .hero-visual{
+      width:100%;
+      max-width:320px;
+      height:auto;
+      margin:0 auto 4px;
+      order:-1;
+      padding-right:0;
+      overflow:visible;
+    }
+    .photo-card{
+      width:100%;
+      height:auto;
+      max-width:100%;
+    }
+    .photo-frame{
+      position:relative;
+      inset:auto;
+      aspect-ratio:4/5;
+    }
+    .photo-tagline{ left:18px; right:18px; bottom:18px; }
+    .photo-tagline .name{ font-size:18px; }
+    .photo-tagline .role{ font-size:12px; }
+    .region-badge{
+      top:auto;
+      right:12px;
+      bottom:12px;
+      font-size:10.5px;
+      padding:8px 11px;
+      max-width:152px;
+      border-radius:14px;
+    }
     .region-badge svg{ width:12px; height:12px; }
 
-    .hero-eyebrow{ font-size:11px; padding:6px 14px; margin-bottom:12px; }
-    .hero h1{ font-size:clamp(22px, 5.6vw, 30px); line-height:1.14; margin-bottom:10px; }
-    .hero-sub{ max-width:100%; font-size:13.5px; line-height:1.45; margin-bottom:14px; }
-    .hero-ctas{ margin-bottom:12px; gap:8px; }
-    .hero-ctas .btn{ padding:12px 18px; font-size:13.5px; }
+    .hero-eyebrow{
+      display:flex;
+      width:100%;
+      justify-content:center;
+      font-size:11px;
+      line-height:1.3;
+      padding:7px 14px;
+      margin-bottom:10px;
+      text-align:center;
+    }
+    .hero h1{ font-size:clamp(26px, 7.4vw, 38px); line-height:1.08; margin-bottom:12px; }
+    .hero-sub{
+      max-width:100%;
+      font-size:15px;
+      line-height:1.5;
+      margin-bottom:16px;
+    }
+    .hero-ctas{ margin-bottom:0; gap:10px; }
+    .hero-ctas .btn{ padding:14px 18px; font-size:15px; }
     .services-thread{ display:none; }
   }
 
   @media (max-width: 480px){
     .header-inner{ padding:0 18px; }
     .brand-tag{ display:none; }
-    .hero{ padding:8px 16px; gap:8px; }
-    .hero-visual{ max-width:230px; height:auto; }
-    .hero h1{ font-size:clamp(20px, 6.4vw, 26px); }
-    .hero-sub{ font-size:12.5px; display:-webkit-box; -webkit-box-orient:vertical; -webkit-line-clamp:4; overflow:hidden; }
+    .hero{ padding:12px 16px 14px; gap:12px; }
+    .hero-visual{ max-width:286px; height:auto; }
+    .photo-tagline{ left:16px; right:16px; bottom:16px; }
+    .photo-tagline .name{ font-size:17px; }
+    .photo-tagline .role{ font-size:11px; }
+    .hero h1{ font-size:clamp(20px, 9vw, 30px); }
+    .hero-sub{
+      font-size:14px;
+      display:block;
+      -webkit-line-clamp:unset;
+      overflow:visible;
+    }
     .hero-ctas .btn{ width:100%; }
     .hero-ctas{ flex-direction:column; align-items:stretch; }
-    .region-badge{ top:10px; right:-4px; font-size:10px; padding:7px 10px; max-width:160px; }
+    .region-badge{
+      right:10px;
+      bottom:10px;
+      font-size:10px;
+      padding:7px 10px;
+      max-width:146px;
+    }
   }
 </style>
 </head>
