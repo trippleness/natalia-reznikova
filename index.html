@@ -246,7 +246,7 @@
   .contact-picker-link{
     display:flex;
     align-items:center;
-    justify-content:space-between;
+    justify-content:flex-start;
     gap:12px;
     padding:16px 18px;
     border-radius:20px;
@@ -264,9 +264,21 @@
     font-size:16px;
     color:var(--ink);
   }
-  .contact-picker-link span{
-    font-size:13px;
-    color:var(--ink-soft);
+  .contact-picker-icon{
+    width:42px;
+    height:42px;
+    flex:0 0 42px;
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    border-radius:14px;
+    background:rgba(255,255,255,0.78);
+    box-shadow:inset 0 0 0 1px rgba(255,255,255,0.45);
+  }
+  .contact-picker-icon svg{
+    width:22px;
+    height:22px;
+    display:block;
   }
   .contact-picker-link.whatsapp{
     background:linear-gradient(180deg, #f1fff7 0%, #e4f9ee 100%);
@@ -277,7 +289,7 @@
     box-shadow:0 14px 28px rgba(37,211,102,0.18);
   }
   .contact-picker-link.whatsapp strong{ color:#128C4A; }
-  .contact-picker-link.whatsapp > span:last-child{ color:#128C4A; }
+  .contact-picker-link.whatsapp .contact-picker-icon{ color:#25D366; }
   .contact-picker-link.max{
     background:linear-gradient(180deg, #eef6ff 0%, #e3f0ff 100%);
     border-color:#bfd7ff;
@@ -287,7 +299,7 @@
     box-shadow:0 14px 28px rgba(39,151,255,0.18);
   }
   .contact-picker-link.max strong{ color:#116DCC; }
-  .contact-picker-link.max > span:last-child{ color:#116DCC; }
+  .contact-picker-link.max .contact-picker-icon{ color:#2797FF; }
   .contact-picker-close{
     width:100%;
     margin-top:10px;
@@ -746,18 +758,20 @@
     <div class="contact-picker-text">Напишите туда, где вам удобнее обсудить задачу и стоимость.</div>
     <div class="contact-picker-actions">
       <a class="contact-picker-link whatsapp" href="https://wa.me/79831496058" target="_blank" rel="noopener">
-        <div>
-          <strong>WhatsApp</strong>
-          <span>Быстрый переход в личный диалог</span>
-        </div>
-        <span>→</span>
+        <span class="contact-picker-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="currentColor">
+            <path d="M20.52 3.48A11.87 11.87 0 0 0 12.07 0C5.53 0 .2 5.32.2 11.87c0 2.09.55 4.13 1.58 5.92L0 24l6.38-1.67a11.82 11.82 0 0 0 5.69 1.45h.01c6.54 0 11.87-5.32 11.87-11.87 0-3.17-1.23-6.15-3.43-8.43zm-8.45 18.3h-.01a9.9 9.9 0 0 1-5.04-1.38l-.36-.21-3.79 1 .99-3.7-.23-.38a9.9 9.9 0 0 1-1.52-5.24c0-5.45 4.43-9.88 9.89-9.88 2.64 0 5.12 1.03 6.99 2.9a9.82 9.82 0 0 1 2.89 6.99c0 5.45-4.43 9.9-9.87 9.9zm5.42-7.4c-.3-.15-1.77-.87-2.05-.97-.27-.1-.46-.15-.66.15-.19.3-.76.97-.92 1.16-.17.2-.34.22-.64.07-.3-.15-1.25-.46-2.38-1.48-.88-.78-1.47-1.74-1.65-2.03-.17-.3-.02-.45.13-.6.14-.13.3-.34.45-.51.15-.18.2-.3.3-.5.1-.2.05-.37-.02-.52-.08-.15-.67-1.62-.92-2.22-.24-.58-.49-.5-.66-.5h-.56c-.2 0-.52.07-.79.37-.27.3-1.04 1.02-1.04 2.48s1.07 2.88 1.22 3.08c.15.2 2.1 3.2 5.08 4.48.71.31 1.27.49 1.7.63.72.23 1.37.2 1.88.12.57-.08 1.77-.72 2.02-1.42.25-.7.25-1.31.18-1.43-.08-.12-.27-.2-.57-.35z"/>
+          </svg>
+        </span>
+        <strong>WhatsApp</strong>
       </a>
       <a class="contact-picker-link max" href="https://max.ru/:share?text=%D0%97%D0%B4%D1%80%D0%B0%D0%B2%D1%81%D1%82%D0%B2%D1%83%D0%B9%D1%82%D0%B5%21%20%D0%A5%D0%BE%D1%87%D1%83%20%D1%83%D0%B7%D0%BD%D0%B0%D1%82%D1%8C%20%D1%81%D1%82%D0%BE%D0%B8%D0%BC%D0%BE%D1%81%D1%82%D1%8C%20%D1%83%D1%81%D0%BB%D1%83%D0%B3." target="_blank" rel="noopener">
-        <div>
-          <strong>Max</strong>
-          <span>Откроется MAX с готовым сообщением</span>
-        </div>
-        <span>→</span>
+        <span class="contact-picker-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none">
+            <path d="M4 18V6h2.8l5.2 6.4L17.2 6H20v12h-2.6V10.26L12 16.74l-5.4-6.48V18H4z" fill="currentColor"/>
+          </svg>
+        </span>
+        <strong>Max</strong>
       </a>
     </div>
     <button type="button" class="btn btn-outline contact-picker-close" id="contactPickerClose">Закрыть</button>
