@@ -124,16 +124,24 @@
     transition:transform .22s ease, border-color .22s ease, box-shadow .22s ease;
   }
   .burger:hover{ transform:translateY(-1px); border-color:#c7b79f; box-shadow:0 12px 24px rgba(30,42,34,0.12); }
-  .burger span, .burger span::before, .burger span::after{
-    content:''; position:absolute;
+  .burger span{
+    position:relative;
+    display:block;
+    width:18px; height:2px; background:var(--ink); border-radius:2px;
+    transition:.25s ease;
+  }
+  .burger span::before, .burger span::after{
+    content:'';
+    position:absolute;
+    left:0;
     width:18px; height:2px; background:var(--ink); border-radius:2px;
     transition:.25s ease;
   }
   .burger span::before{ transform:translateY(-6px); }
   .burger span::after{ transform:translateY(6px); }
   .burger.active span{ background:transparent; }
-  .burger.active span::before{ transform:rotate(45deg); }
-  .burger.active span::after{ transform:rotate(-45deg); }
+  .burger.active span::before{ transform:translateY(0) rotate(45deg); }
+  .burger.active span::after{ transform:translateY(0) rotate(-45deg); }
 
   /* mobile nav overlay */
   .mobile-nav{
@@ -175,7 +183,14 @@
     font-size:25px; font-weight:600;
     display:flex; align-items:baseline; gap:14px;
     color:var(--ink);
-    padding:8px 2px;
+    padding:12px 14px;
+    border-radius:18px;
+    transition:background .18s ease, transform .18s ease, color .18s ease;
+  }
+  .mobile-nav-links a:hover{
+    background:rgba(168,98,61,0.08);
+    color:var(--copper-dark);
+    transform:translateX(2px);
   }
   .mobile-nav-links a span.num{ font-size:14px; color:var(--copper); font-family:'Inter'; font-weight:600; }
   .mobile-nav-cta{ margin-top:auto; display:flex; flex-direction:column; gap:12px; padding-top:20px; }
@@ -394,7 +409,26 @@
       align-items:stretch;
     }
     .hero-ctas .btn{ padding:14px 18px; font-size:15px; }
-    .services-thread{ display:none; }
+    .services-thread{
+      display:block;
+      margin-top:16px;
+    }
+    .services-thread svg.thread-line{ display:none; }
+    .services-list{
+      display:grid;
+      grid-template-columns:repeat(2, minmax(0, 1fr));
+      gap:10px;
+      padding-top:0;
+    }
+    .service-chip{
+      min-height:68px;
+      align-items:flex-start;
+      border-radius:18px;
+      padding:14px 14px 12px;
+      white-space:normal;
+      line-height:1.35;
+      box-shadow:0 10px 24px rgba(30,42,34,0.06);
+    }
   }
 
   @media (max-width: 480px){
@@ -430,6 +464,12 @@
     .mobile-nav-cta .btn{
       padding:15px 16px;
       font-size:15px;
+    }
+    .services-list{
+      grid-template-columns:1fr;
+    }
+    .service-chip{
+      min-height:auto;
     }
   }
 </style>
@@ -551,6 +591,20 @@
     { href: '#pricing', label: 'Тарифы' },
     { href: '#contacts', label: 'Контакты' }
   ];
+
+  function openMobileNav() {
+    mobileNav.classList.add('open');
+    burgerBtn.classList.add('active');
+    burgerBtn.setAttribute('aria-expanded', 'true');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeMobileNav() {
+    mobileNav.classList.remove('open');
+    burgerBtn.classList.remove('active');
+    burgerBtn.setAttribute('aria-expanded', 'false');
+    document.body.style.overflow = '';
+  }
 
   headerNavLinks.forEach((link, index) => {
     const item = desktopNavItems[index];
