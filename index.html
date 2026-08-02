@@ -268,6 +268,26 @@
     font-size:13px;
     color:var(--ink-soft);
   }
+  .contact-picker-link.whatsapp{
+    background:linear-gradient(180deg, #f1fff7 0%, #e4f9ee 100%);
+    border-color:#b8e7cc;
+  }
+  .contact-picker-link.whatsapp:hover{
+    border-color:#25D366;
+    box-shadow:0 14px 28px rgba(37,211,102,0.18);
+  }
+  .contact-picker-link.whatsapp strong{ color:#128C4A; }
+  .contact-picker-link.whatsapp > span:last-child{ color:#128C4A; }
+  .contact-picker-link.max{
+    background:linear-gradient(180deg, #eef6ff 0%, #e3f0ff 100%);
+    border-color:#bfd7ff;
+  }
+  .contact-picker-link.max:hover{
+    border-color:#2797FF;
+    box-shadow:0 14px 28px rgba(39,151,255,0.18);
+  }
+  .contact-picker-link.max strong{ color:#116DCC; }
+  .contact-picker-link.max > span:last-child{ color:#116DCC; }
   .contact-picker-close{
     width:100%;
     margin-top:10px;
@@ -516,7 +536,7 @@
     .brand-tag{ display:none; }
     .hero{ padding:12px 16px 14px; gap:12px; }
     .hero-visual{ max-width:100%; height:auto; }
-    .photo-card{ max-width:280px; }
+    .photo-card{ max-width:min(100%, 360px); }
     .hero h1{ font-size:clamp(20px, 9vw, 30px); }
     .hero-sub{
       font-size:14px;
@@ -725,16 +745,16 @@
     <div class="contact-picker-title" id="contactPickerTitle">Выберите мессенджер</div>
     <div class="contact-picker-text">Напишите туда, где вам удобнее обсудить задачу и стоимость.</div>
     <div class="contact-picker-actions">
-      <a class="contact-picker-link" href="https://wa.me/79831496058" target="_blank" rel="noopener">
+      <a class="contact-picker-link whatsapp" href="https://wa.me/79831496058" target="_blank" rel="noopener">
         <div>
           <strong>WhatsApp</strong>
           <span>Быстрый переход в личный диалог</span>
         </div>
         <span>→</span>
       </a>
-      <a class="contact-picker-link" href="https://max.ru/:share?text=%D0%97%D0%B4%D1%80%D0%B0%D0%B2%D1%81%D1%82%D0%B2%D1%83%D0%B9%D1%82%D0%B5%21%20%D0%A5%D0%BE%D1%87%D1%83%20%D1%83%D0%B7%D0%BD%D0%B0%D1%82%D1%8C%20%D1%81%D1%82%D0%BE%D0%B8%D0%BC%D0%BE%D1%81%D1%82%D1%8C%20%D1%83%D1%81%D0%BB%D1%83%D0%B3." target="_blank" rel="noopener">
+      <a class="contact-picker-link max" href="https://max.ru/:share?text=%D0%97%D0%B4%D1%80%D0%B0%D0%B2%D1%81%D1%82%D0%B2%D1%83%D0%B9%D1%82%D0%B5%21%20%D0%A5%D0%BE%D1%87%D1%83%20%D1%83%D0%B7%D0%BD%D0%B0%D1%82%D1%8C%20%D1%81%D1%82%D0%BE%D0%B8%D0%BC%D0%BE%D1%81%D1%82%D1%8C%20%D1%83%D1%81%D0%BB%D1%83%D0%B3." target="_blank" rel="noopener">
         <div>
-          <strong>MAX</strong>
+          <strong>Max</strong>
           <span>Откроется MAX с готовым сообщением</span>
         </div>
         <span>→</span>
