@@ -75,6 +75,7 @@
   .brand{ display:flex; flex-direction:column; gap:2px; }
   .brand-name{ font-family:'Zilla Slab', serif; font-weight:600; font-size:19px; color:var(--ink); letter-spacing:0.2px; }
   .brand-tag{ font-size:12px; color:var(--ink-soft); letter-spacing:0.3px; }
+  .brand-tag-mobile{ display:none; }
 
   .header-right{ display:flex; align-items:center; gap:28px; }
 
@@ -195,6 +196,82 @@
   .mobile-nav-links a span.num{ font-size:14px; color:var(--copper); font-family:'Inter'; font-weight:600; }
   .mobile-nav-cta{ margin-top:auto; display:flex; flex-direction:column; gap:12px; padding-top:20px; }
   .mobile-nav-cta .btn{ width:100%; padding:16px; font-size:16px; }
+
+  .contact-picker{
+    position:fixed;
+    inset:0;
+    z-index:260;
+    display:flex;
+    align-items:flex-end;
+    justify-content:center;
+    padding:18px;
+    background:rgba(24,28,24,0.36);
+    opacity:0;
+    visibility:hidden;
+    pointer-events:none;
+    transition:opacity .22s ease, visibility .22s ease;
+  }
+  .contact-picker.open{
+    opacity:1;
+    visibility:visible;
+    pointer-events:auto;
+  }
+  .contact-picker-sheet{
+    width:min(100%, 420px);
+    background:#fff;
+    border:1px solid rgba(210,198,178,0.9);
+    border-radius:28px;
+    padding:18px;
+    box-shadow:0 24px 60px rgba(30,42,34,0.18);
+    transform:translateY(12px);
+    transition:transform .22s ease;
+  }
+  .contact-picker.open .contact-picker-sheet{ transform:translateY(0); }
+  .contact-picker-title{
+    font-family:'Zilla Slab', serif;
+    font-size:24px;
+    margin-bottom:6px;
+    color:var(--ink);
+  }
+  .contact-picker-text{
+    font-size:14px;
+    line-height:1.5;
+    color:var(--ink-soft);
+    margin-bottom:16px;
+  }
+  .contact-picker-actions{
+    display:grid;
+    gap:10px;
+  }
+  .contact-picker-link{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:12px;
+    padding:16px 18px;
+    border-radius:20px;
+    border:1px solid var(--line);
+    background:#fff;
+    font-weight:600;
+    transition:transform .18s ease, border-color .18s ease, box-shadow .18s ease;
+  }
+  .contact-picker-link:hover{
+    transform:translateY(-1px);
+    border-color:#c7b79f;
+    box-shadow:0 12px 24px rgba(30,42,34,0.08);
+  }
+  .contact-picker-link strong{
+    font-size:16px;
+    color:var(--ink);
+  }
+  .contact-picker-link span{
+    font-size:13px;
+    color:var(--ink-soft);
+  }
+  .contact-picker-close{
+    width:100%;
+    margin-top:10px;
+  }
 
   /* ---------- HERO ---------- */
   .hero{
@@ -344,6 +421,7 @@
     display:flex; align-items:center; gap:8px;
     max-width:220px;
   }
+  .mobile-trust-badge{ display:none; }
 
   /* ---------- RESPONSIVE ---------- */
   @media (max-width: 980px){
@@ -447,6 +525,55 @@
       overflow:visible;
     }
     .hero-ctas .btn{ width:100%; }
+    .brand-tag{
+      display:block;
+      font-size:10px;
+      letter-spacing:0.18px;
+      line-height:1.2;
+      margin-top:2px;
+    }
+    .brand-tag-mobile{
+      display:block;
+      font-size:10px;
+      color:var(--ink-soft);
+      letter-spacing:0.18px;
+      line-height:1.2;
+      margin-top:2px;
+    }
+    .mobile-trust-badge{
+      display:flex;
+      position:absolute;
+      left:12px;
+      right:12px;
+      bottom:12px;
+      z-index:3;
+      align-items:center;
+      gap:8px;
+      padding:10px 12px;
+      border-radius:16px;
+      background:rgba(255,255,255,0.92);
+      color:var(--ink);
+      box-shadow:0 10px 26px rgba(30,42,34,0.12);
+      backdrop-filter:blur(8px);
+    }
+    .mobile-trust-badge-dot{
+      width:9px;
+      height:9px;
+      border-radius:50%;
+      background:var(--copper);
+      flex-shrink:0;
+    }
+    .mobile-trust-badge strong{
+      display:block;
+      font-size:13px;
+      line-height:1.2;
+    }
+    .mobile-trust-badge span{
+      display:block;
+      font-size:11px;
+      line-height:1.25;
+      color:var(--ink-soft);
+    }
     .mobile-nav{
       padding:18px 16px 22px;
     }
@@ -471,6 +598,16 @@
     .service-chip{
       min-height:auto;
     }
+    .contact-picker{
+      padding:14px;
+    }
+    .contact-picker-sheet{
+      border-radius:24px;
+      padding:16px;
+    }
+    .contact-picker-title{
+      font-size:21px;
+    }
   }
 </style>
 </head>
@@ -494,7 +631,7 @@
       <a href="tel:+79831496058" class="header-phone">
         +7 983 149 60 58
       </a>
-      <a href="https://wa.me/79831496058" target="_blank" rel="noopener" class="btn btn-primary btn-header">Узнать стоимость</a>
+      <button type="button" class="btn btn-primary btn-header js-open-contact-picker">Узнать стоимость</button>
       <button class="burger" id="burgerBtn" aria-label="Открыть меню"><span></span></button>
     </div>
   </div>
@@ -502,7 +639,10 @@
 
 <div class="mobile-nav" id="mobileNav">
   <div class="mobile-nav-top">
-    <span class="brand-name display" style="font-size:18px;">Наталья Резникова</span>
+    <div>
+      <span class="brand-name display" style="font-size:18px;">Наталья Резникова</span>
+      <span class="brand-tag-mobile">Юридическое и бухгалтерское сопровождение</span>
+    </div>
     <button class="mobile-close" id="mobileCloseBtn" aria-label="Закрыть меню">
       <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M5 5L19 19M19 5L5 19" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
     </button>
@@ -514,7 +654,7 @@
     <a href="#контакты"><span class="num">04</span>Контакты</a>
   </nav>
   <div class="mobile-nav-cta">
-    <a href="https://wa.me/79831496058" class="btn btn-primary">Узнать стоимость в WhatsApp</a>
+    <button type="button" class="btn btn-primary js-open-contact-picker">Узнать стоимость</button>
     <a href="tel:+79831496058" class="btn btn-outline">Позвонить: +7 983 149 60 58</a>
   </div>
 </div>
@@ -532,9 +672,7 @@
     </p>
 
     <div class="hero-ctas">
-      <a href="https://wa.me/79831496058" target="_blank" rel="noopener" class="btn btn-primary">
-        Узнать стоимость в WhatsApp
-      </a>
+      <button type="button" class="btn btn-primary js-open-contact-picker">Узнать стоимость</button>
       <a href="#process" class="btn btn-outline">
         Как проходит работа
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
@@ -569,11 +707,42 @@
       <svg width="15" height="15" viewBox="0 0 24 24" fill="none"><path d="M12 22s7-6.1 7-12a7 7 0 1 0-14 0c0 5.9 7 12 7 12z" stroke="white" stroke-width="1.7"/><circle cx="12" cy="10" r="2.4" stroke="white" stroke-width="1.7"/></svg>
       Работаю удалённо по всей России
     </div>
+    <div class="mobile-trust-badge">
+      <span class="mobile-trust-badge-dot"></span>
+      <div>
+        <strong>Опыт в реальных задачах бизнеса</strong>
+        <span>Документы, отчётность и сопровождение без лишней бюрократии</span>
+      </div>
+    </div>
     </div>
   </div>
 </section>
 
 <div id="process"></div>
+
+<div class="contact-picker" id="contactPicker" aria-hidden="true">
+  <div class="contact-picker-sheet" role="dialog" aria-modal="true" aria-labelledby="contactPickerTitle">
+    <div class="contact-picker-title" id="contactPickerTitle">Выберите мессенджер</div>
+    <div class="contact-picker-text">Напишите туда, где вам удобнее обсудить задачу и стоимость.</div>
+    <div class="contact-picker-actions">
+      <a class="contact-picker-link" href="https://wa.me/79831496058" target="_blank" rel="noopener">
+        <div>
+          <strong>WhatsApp</strong>
+          <span>Быстрый переход в личный диалог</span>
+        </div>
+        <span>→</span>
+      </a>
+      <a class="contact-picker-link" href="https://max.ru/:share?text=%D0%97%D0%B4%D1%80%D0%B0%D0%B2%D1%81%D1%82%D0%B2%D1%83%D0%B9%D1%82%D0%B5%21%20%D0%A5%D0%BE%D1%87%D1%83%20%D1%83%D0%B7%D0%BD%D0%B0%D1%82%D1%8C%20%D1%81%D1%82%D0%BE%D0%B8%D0%BC%D0%BE%D1%81%D1%82%D1%8C%20%D1%83%D1%81%D0%BB%D1%83%D0%B3." target="_blank" rel="noopener">
+        <div>
+          <strong>MAX</strong>
+          <span>Откроется MAX с готовым сообщением</span>
+        </div>
+        <span>→</span>
+      </a>
+    </div>
+    <button type="button" class="btn btn-outline contact-picker-close" id="contactPickerClose">Закрыть</button>
+  </div>
+</div>
 
 <script>
   const burgerBtn = document.getElementById('burgerBtn');
@@ -584,6 +753,9 @@
   const heroTitle = document.querySelector('.hero h1');
   const heroSub = document.querySelector('.hero-sub');
   const serviceChips = document.querySelectorAll('.service-chip');
+  const contactPicker = document.getElementById('contactPicker');
+  const contactPickerClose = document.getElementById('contactPickerClose');
+  const openContactPickerButtons = document.querySelectorAll('.js-open-contact-picker');
 
   const desktopNavItems = [
     { href: '#services', label: 'Услуги' },
@@ -603,6 +775,21 @@
     mobileNav.classList.remove('open');
     burgerBtn.classList.remove('active');
     burgerBtn.setAttribute('aria-expanded', 'false');
+    document.body.style.overflow = '';
+  }
+
+  function openContactPicker() {
+    if (!contactPicker) return;
+    closeMobileNav();
+    contactPicker.classList.add('open');
+    contactPicker.setAttribute('aria-hidden', 'false');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeContactPicker() {
+    if (!contactPicker) return;
+    contactPicker.classList.remove('open');
+    contactPicker.setAttribute('aria-hidden', 'true');
     document.body.style.overflow = '';
   }
 
@@ -639,6 +826,9 @@
   });
 
   burgerBtn.setAttribute('aria-expanded', 'false');
+  openContactPickerButtons.forEach((button) => {
+    button.addEventListener('click', openContactPicker);
+  });
   burgerBtn.addEventListener('click', () => {
     if (mobileNav.classList.contains('open')) {
       closeMobileNav();
@@ -648,8 +838,20 @@
   });
   mobileCloseBtn.addEventListener('click', closeMobileNav);
   mobileNav.querySelectorAll('a').forEach(a => a.addEventListener('click', closeMobileNav));
+  if (contactPickerClose) {
+    contactPickerClose.addEventListener('click', closeContactPicker);
+  }
+  if (contactPicker) {
+    contactPicker.addEventListener('click', (event) => {
+      if (event.target === contactPicker) closeContactPicker();
+    });
+    contactPicker.querySelectorAll('a').forEach((link) => {
+      link.addEventListener('click', closeContactPicker);
+    });
+  }
   window.addEventListener('keydown', (event) => {
     if (event.key === 'Escape' && mobileNav.classList.contains('open')) closeMobileNav();
+    if (event.key === 'Escape' && contactPicker?.classList.contains('open')) closeContactPicker();
   });
 
   /* Make the photo column exactly as tall as the rendered text column (desktop only) */
