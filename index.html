@@ -330,7 +330,7 @@
     margin:0 auto;
     padding:clamp(8px, 1.8vh, 18px) 28px;
     display:grid;
-    grid-template-columns:1.2fr 0.8fr;
+    grid-template-columns:minmax(0, 1.15fr) minmax(0, 0.85fr);
     grid-template-rows:minmax(0, 1fr);
     gap:clamp(16px, 2vh, 28px);
     align-items:center;
@@ -421,12 +421,12 @@
     justify-content:center;
     min-height:0; min-width:0;
     width:100%;
-    padding-right:40px;
+    padding-right:0;
   }
   .photo-card{
     position:relative;
     height:100%;
-    width:auto;
+    width:94%;
     max-width:min(100%, 520px);
     aspect-ratio:4/5;
     margin:0 auto;
@@ -469,7 +469,7 @@
     .hero-text{ overflow:visible; }
     .hero-visual{
       width:100%;
-      max-width:320px;
+      max-width:380px;
       height:auto;
       margin:0 auto;
       order:2;
@@ -534,7 +534,7 @@
     .brand-tag{ display:none; }
     .hero{ padding:18px 16px 24px; gap:16px; }
     .hero-visual{ max-width:100%; height:auto; }
-    .photo-card{ max-width:min(100%, 360px); }
+    .photo-card{ max-width:360px; }
     .hero h1{ font-size:clamp(20px, 9vw, 30px); }
     .hero-sub{
       font-size:14px;
